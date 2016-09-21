@@ -22,7 +22,7 @@ class Words {
     //: ### variables the same type? If not, why?
     //:
     //:
-    //: They are not the same. The parameters passed in are Optionals (that enclose Strings) whereas the instance variables are Strings (that came out of unwrapping the Optional).
+    //: They are not the same. The parameters passed in are Optionals (that enclose Strings) whereas the instance variables are Strings (actually ImplicityUnwrappedOptional).
     //:
     
     //: ## Q2: Variable Types and Function Types
