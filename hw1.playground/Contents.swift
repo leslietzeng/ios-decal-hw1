@@ -17,16 +17,16 @@ class Words {
         self.wordA = wordA
         self.wordB = wordB
     }
-
-//: ### Are the values passed in to the **init** function and those set to the instance
-//: ### variables the same type? If not, why?
-
-
-//: [EXPLAIN YOUR ANSWER HERE]
-
-
-//: ## Q2: Variable Types and Function Types
-    func arePalindromes(_ words: [String]) -> Bool {
+    
+    //: ### Are the values passed in to the **init** function and those set to the instance
+    //: ### variables the same type? If not, why?
+    //:
+    //:
+    //: They are not the same. The parameters passed in are Optionals (that enclose Strings) whereas the instance variables are Strings (that came out of unwrapping the Optional).
+    //:
+    
+    //: ## Q2: Variable Types and Function Types
+    class func arePalindromes(_ words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reversed())}
         let numElements = words.count
         
@@ -35,20 +35,22 @@ class Words {
                 return false
             }
         }
+        return true
     }
-//: ### Why does the compiler dislike the **for loop**? Fix it.
-//: ### What else is wrong with this function? You may have to refer to (but **not**
-//: ### change) the code at the very bottom. Debug the function.
-
-
-//: [EXPLAIN YOUR ANSWER HERE]
-
-
-//: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int] //Line X
-        var lenA = self.wordA.characters.count
-        var lenB = self.wordB.characters.count
+    //: ### Why does the compiler dislike the **for loop**? Fix it.
+    //: ### What else is wrong with this function? You may have to refer to (but **not**
+    //: ### change) the code at the very bottom. Debug the function.
+    
+    
+    //: 1st issue: There's no return value after exiting the for loop if all the elements are palindromes.
+    //: 2nd issue: The func should be a class func, since it is used by calling Words.arePalindromes, so the method belongs to the class, not an instance of Words.
+    
+    
+    //: ## Q3: More Functions and Object Initialization
+    func isAnagram() -> Bool {
+        var countLetters = [Character : Int]() //Line X
+        let lenA = self.wordA.characters.count
+        let lenB = self.wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -75,21 +77,23 @@ class Words {
             }
         }
         
-        for (letter, count) in countLetters {
+        for (_, count) in countLetters {
             if count != 0 {
                 return false
             }
         }
         
-        return nil
+        return true
     }
-//: ### What is the problem with declaring **countLetters** as we do in **Line X**,
-//: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
-//: ### What else is wrong with this function? You may have to refer to (but **not**
-//: ### change) the code at the very bottom. Debug the function.
-
-
-//: [EXPLAIN YOUR ANSWER HERE]
+    //: ### What is the problem with declaring **countLetters** as we do in **Line X**,
+    //: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
+    //: ### What else is wrong with this function? You may have to refer to (but **not**
+    //: ### change) the code at the very bottom. Debug the function.
+    
+    
+    //: countLetters isn't initialized. So we cannot attempt to access one of its elements in Line Y because the dictionary doesn't even exist.
+    //: Another issue is that the function should not be a class method because it is attached to an instance (wordsObj) in the code below.
+    //: Lastly, the last return should not be nil because the return value is a boolean. If we pass the last for loop, the two words are anagrams, so we should return true instead. I also changed some stylistic things that Xcode recommended (using constants for count, since it cannot change, and putting a placeholder for the first element in the countLetters tuple in the last for-loop since we are not using it).
     
     
 }
